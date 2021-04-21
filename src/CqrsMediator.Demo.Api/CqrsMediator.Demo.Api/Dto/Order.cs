@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using CqrsMediator.Demo.Dal.Enum;
 
-namespace CqrsMediator.Demo.Dal.Entities
+namespace CqrsMediator.Demo.Api.Dto
 {
     public class Order
     {
