@@ -22,7 +22,7 @@ namespace CqrsMediator.Demo.Bll.Services
                 Name = name,
                 Description = description,
                 UnitPrice = unitPrice,
-                Stock = 0,
+                Stock = 10,
             };
 
             _dbContext.Products.Add(p);
