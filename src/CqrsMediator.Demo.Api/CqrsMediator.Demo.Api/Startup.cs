@@ -1,7 +1,9 @@
-using System;
 
+using CqrsMediator.Demo.Bll.Catalog.Queries;
 using CqrsMediator.Demo.Bll.Services;
 using CqrsMediator.Demo.Dal;
+
+using MediatR;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,6 +32,7 @@ namespace CqrsMediator.Demo.Api
             services.AddTransient<IOrderService, OrderService>();
 
             services.AddAutoMapper(typeof(Startup));
+            services.AddMediatR(typeof(FindProduct));
 
             services.AddControllers();
 

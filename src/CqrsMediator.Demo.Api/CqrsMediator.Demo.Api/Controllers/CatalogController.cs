@@ -1,9 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using AutoMapper;
 
 using CqrsMediator.Demo.Api.Dto;
+using CqrsMediator.Demo.Bll.Catalog.Queries;
 using CqrsMediator.Demo.Bll.Services;
+
+using MediatR;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,17 +19,19 @@ namespace CqrsMediator.Demo.Api.Controllers
     {
         private readonly ICatalogService _catalogService;
         private IMapper _mapper;
+        private readonly IMediator _mediator;
 
-        public CatalogController(ICatalogService catalogService, IMapper mapper)
+        public CatalogController(ICatalogService catalogService, IMapper mapper, IMediator mediator)
         {
             _catalogService = catalogService;
             _mapper = mapper;
+            _mediator = mediator;
         }
 
         [HttpGet]
-        public ActionResult<List<Dto.Product>> GetProducts([FromQuery] string name = null, [FromQuery] string description = null)
+        public async Task<ActionResult<List<Dto.Product>>> GetProducts([FromQuery] FindProduct.Query query)
         {
-            return _mapper.Map<List<Dto.Product>>(_catalogService.FindProducts(name, description));
+            return _mapper.Map<List<Dto.Product>>(await _mediator.Send(query));
         }
 
         [HttpGet("{productId:int}")]

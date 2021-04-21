@@ -32,14 +32,6 @@ namespace CqrsMediator.Demo.Bll.Services
             return p;
         }
 
-        public List<Product> FindProducts(string name, string description)
-        {
-            return _dbContext.Products
-                .Where(p => name == null || p.Name.Contains(name))
-                .Where(p => description == null || p.Description.Contains(description))
-                .ToList();
-        }
-
         public Product GetProduct(int productId)
         {
             return _dbContext.Products.Find(productId);

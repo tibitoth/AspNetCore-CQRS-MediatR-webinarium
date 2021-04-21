@@ -8,4 +8,12 @@
     <ProjectReference Include="..\CqrsMediator.Demo.Dal\CqrsMediator.Demo.Dal.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Catalog\Commands\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="9.0.0" />
+  </ItemGroup>
+
 </Project>
