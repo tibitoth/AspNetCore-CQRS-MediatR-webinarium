@@ -7,8 +7,7 @@ namespace CqrsMediator.Demo.Bll.Services
 {
     public interface IOrderService
     {
-        public List<Order> FindOrders(OrderStatus? status);
-        public Order GetOrder(int orderId);
-        public Order CreateOrder(string customerName, string customerAddress, Dictionary<int, int> productAmounts);
+        public List<Dal.Entities.Order> FindOrders(OrderStatus? status);
+        public Dal.Entities.Order GetOrder(int orderId);
     }
 }

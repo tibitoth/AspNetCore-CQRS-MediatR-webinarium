@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 
 using AutoMapper;
 
-using CqrsMediator.Demo.Api.Dto;
+using CqrsMediator.Demo.Bll.Order.Commands;
 using CqrsMediator.Demo.Bll.Services;
 using CqrsMediator.Demo.Dal.Enum;
+
+using MediatR;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,11 +19,13 @@ namespace CqrsMediator.Demo.Api.Controllers
     {
         private readonly IOrderService _orderService;
         private IMapper _mapper;
+        private readonly IMediator _mediator;
 
-        public OrderController(IOrderService orderService, IMapper mapper)
+        public OrderController(IOrderService orderService, IMapper mapper, IMediator mediator)
         {
             _orderService = orderService;
             _mapper = mapper;
+            _mediator = mediator;
         }
 
         [HttpGet]
@@ -37,12 +41,9 @@ namespace CqrsMediator.Demo.Api.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateProduct([FromBody] CreateOrderRequest request)
+        public async Task<ActionResult> CreateProduct([FromBody] CreateOrder.Command request)
         {
-            var o = _orderService.CreateOrder(
-                request.CustomerName,
-                request.CustomerAddress,
-                request.OrderItems.ToDictionary(oi => oi.ProductId, oi => oi.Amount));
+            var o = await _mediator.Send(request);
             return CreatedAtAction(nameof(GetOrder), new { orderId = o.OrderId }, _mapper.Map<Dto.Order>(o));
         }
     }
