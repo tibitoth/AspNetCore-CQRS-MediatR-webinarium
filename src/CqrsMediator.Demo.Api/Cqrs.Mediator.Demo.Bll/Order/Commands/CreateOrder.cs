@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-using CqrsMediator.Demo.Bll.Services;
+using CqrsMediator.Demo.Bll.Order.Events;
 using CqrsMediator.Demo.Dal;
 using CqrsMediator.Demo.Dal.Entities;
 using CqrsMediator.Demo.Dal.Enum;
@@ -32,12 +32,12 @@ namespace CqrsMediator.Demo.Bll.Order.Commands
         public class Handler : IRequestHandler<Command, Dal.Entities.Order>
         {
             private readonly AppDbContext _dbContext;
-            private readonly ICatalogService _catalogService;
+            private readonly IMediator _mediator;
 
-            public Handler(AppDbContext dbContext, ICatalogService catalogService)
+            public Handler(AppDbContext dbContext, IMediator mediator)
             {
                 _dbContext = dbContext;
-                _catalogService = catalogService;
+                _mediator = mediator;
             }
 
             public async Task<Dal.Entities.Order> Handle(Command request, CancellationToken cancellationToken)
@@ -59,10 +59,7 @@ namespace CqrsMediator.Demo.Bll.Order.Commands
 
                 await _dbContext.SaveChangesAsync();
 
-                foreach (var item in order.OrederItems)
-                {
-                    _catalogService.ChangeProductStock(item.ProductId, -item.Amount);
-                }
+                await _mediator.Publish(new OrderCreatedEvent() { Order = order });
 
                 return order;
             }

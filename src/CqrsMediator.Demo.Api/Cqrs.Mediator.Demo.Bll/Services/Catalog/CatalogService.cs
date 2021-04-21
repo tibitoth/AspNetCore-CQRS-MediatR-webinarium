@@ -18,16 +18,6 @@ namespace CqrsMediator.Demo.Bll.Services
         public Product GetProduct(int productId)
         {
             return _dbContext.Products.Find(productId);
-        }
-
-        int ICatalogService.ChangeProductStock(int productId, int stockChange)
-        {
-            var p = GetProduct(productId);
-            p.Stock += stockChange;
-
-            _dbContext.SaveChanges();
-
-            return p.Stock;
-        }
+        }        
     }
 }
