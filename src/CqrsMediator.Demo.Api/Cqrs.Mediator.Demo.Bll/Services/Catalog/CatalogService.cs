@@ -15,23 +15,6 @@ namespace CqrsMediator.Demo.Bll.Services
             _dbContext = dbContext;
         }
 
-        public Product CreateProduct(string name, string description, decimal unitPrice)
-        {
-            var p = new Product
-            {
-                Name = name,
-                Description = description,
-                UnitPrice = unitPrice,
-                Stock = 10,
-            };
-
-            _dbContext.Products.Add(p);
-
-            _dbContext.SaveChanges();
-
-            return p;
-        }
-
         public Product GetProduct(int productId)
         {
             return _dbContext.Products.Find(productId);

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 
 using CqrsMediator.Demo.Api.Dto;
+using CqrsMediator.Demo.Bll.Catalog.Commands;
 using CqrsMediator.Demo.Bll.Catalog.Queries;
 using CqrsMediator.Demo.Bll.Services;
 
@@ -41,9 +42,9 @@ namespace CqrsMediator.Demo.Api.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateProduct([FromBody] CreateProductRequest request)
+        public async Task<ActionResult> CreateProduct([FromBody] CreateProduct.Command request)
         {
-            var p = _catalogService.CreateProduct(request.Name, request.Description, request.UnitPrice);
+            var p = await _mediator.Send(request);
             return CreatedAtAction(nameof(GetProducts), new { productId = p.ProductId }, _mapper.Map<Dto.Product>(p));
         }
     }
