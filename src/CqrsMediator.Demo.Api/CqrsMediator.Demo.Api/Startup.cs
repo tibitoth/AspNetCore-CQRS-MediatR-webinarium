@@ -1,19 +1,14 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
+using CqrsMediator.Demo.Bll.Services;
 using CqrsMediator.Demo.Dal;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace CqrsMediator.Demo.Api
 {
@@ -31,7 +26,17 @@ namespace CqrsMediator.Demo.Api
         {
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddTransient<ICatalogService, CatalogService>();
+            services.AddTransient<IOrderService, OrderService>();
+
+            services.AddAutoMapper(typeof(Startup));
+
             services.AddControllers();
+
+            services.AddOpenApiDocument(o =>
+            {
+                o.DocumentName = "Demo";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,6 +52,9 @@ namespace CqrsMediator.Demo.Api
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
 
             app.UseEndpoints(endpoints =>
             {

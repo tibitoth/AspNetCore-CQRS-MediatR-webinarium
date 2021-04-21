@@ -35,8 +35,8 @@ namespace CqrsMediator.Demo.Bll.Services
         public List<Product> FindProducts(string name, string description)
         {
             return _dbContext.Products
-                .Where(p => p.Name.Contains(name))
-                .Where(p => p.Description.Contains(description))
+                .Where(p => name == null || p.Name.Contains(name))
+                .Where(p => description == null || p.Description.Contains(description))
                 .ToList();
         }
 

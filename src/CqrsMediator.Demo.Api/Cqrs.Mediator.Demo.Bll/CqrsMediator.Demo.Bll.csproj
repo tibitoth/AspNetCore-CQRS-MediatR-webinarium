@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CqrsMediator.Demo.Dal\CqrsMediator.Demo.Dal.csproj" />
+  </ItemGroup>
+
 </Project>

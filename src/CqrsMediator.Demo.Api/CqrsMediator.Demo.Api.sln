@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CqrsMediator.Demo.Api", "Cq
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CqrsMediator.Demo.Dal", "CqrsMediator.Demo.Dal\CqrsMediator.Demo.Dal.csproj", "{3F00C1EB-55B2-4659-B0BE-DB525DFCC75A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cqrs.Mediator.Demo.Bll", "Cqrs.Mediator.Demo.Bll\Cqrs.Mediator.Demo.Bll.csproj", "{75AD07B0-98D5-43D0-92CC-7F300D0B21DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CqrsMediator.Demo.Bll", "Cqrs.Mediator.Demo.Bll\CqrsMediator.Demo.Bll.csproj", "{75AD07B0-98D5-43D0-92CC-7F300D0B21DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
