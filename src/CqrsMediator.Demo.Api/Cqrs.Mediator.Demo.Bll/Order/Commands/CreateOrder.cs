@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
+using CqrsMediator.Demo.Bll.Mediator;
 using CqrsMediator.Demo.Bll.Order.Events;
 using CqrsMediator.Demo.Dal;
 using CqrsMediator.Demo.Dal.Entities;
@@ -15,7 +16,7 @@ namespace CqrsMediator.Demo.Bll.Order.Commands
 {
     public static class CreateOrder
     {
-        public class Command : IRequest<Dal.Entities.Order>
+        public class Command : ICommand<Dal.Entities.Order>
         {
             public string CustomerName { get; set; }
             public string CustomerAddress { get; set; }

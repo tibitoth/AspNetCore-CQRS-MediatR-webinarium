@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 using CqrsMediator.Demo.Bll.Order.Events;
@@ -31,8 +32,14 @@ namespace CqrsMediator.Demo.Bll.Catalog.EventHandlers
         private async Task<int> ChangeProductStockAsync(int productId, int stockChange)
         {
             var p = _catalogService.GetProduct(productId);
-            p.Stock += stockChange;
 
+            var newStock = p.Stock + stockChange;
+            if (newStock < 0)
+            {
+                throw new InvalidOperationException("Not enough stock.");
+            }
+
+            p.Stock = newStock;
             await _dbContext.SaveChangesAsync();
 
             return p.Stock;

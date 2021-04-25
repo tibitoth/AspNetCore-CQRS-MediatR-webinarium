@@ -1,5 +1,6 @@
 
 using CqrsMediator.Demo.Bll.Catalog.Queries;
+using CqrsMediator.Demo.Bll.Mediator;
 using CqrsMediator.Demo.Bll.Services;
 using CqrsMediator.Demo.Dal;
 
@@ -33,6 +34,7 @@ namespace CqrsMediator.Demo.Api
 
             services.AddAutoMapper(typeof(Startup));
             services.AddMediatR(typeof(FindProduct));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionBehavior<,>));
 
             services.AddControllers();
 

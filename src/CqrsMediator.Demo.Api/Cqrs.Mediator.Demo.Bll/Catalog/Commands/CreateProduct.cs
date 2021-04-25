@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 
+using CqrsMediator.Demo.Bll.Mediator;
 using CqrsMediator.Demo.Dal;
 using CqrsMediator.Demo.Dal.Entities;
 
@@ -10,7 +11,7 @@ namespace CqrsMediator.Demo.Bll.Catalog.Commands
 {
     public static class CreateProduct
     {
-        public class Command : IRequest<Product>
+        public class Command : ICommand<Product>
         {
             public string Name { get; set; }
             public string Description { get; set; }
