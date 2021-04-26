@@ -7,8 +7,8 @@ using MediatR;
 
 namespace CqrsMediator.Demo.Bll.Mediator
 {
-    public class TransactionBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-        where TRequest : IBaseRequest
+    public class TransactionBehavior<TRequest, TResult> : IPipelineBehavior<TRequest, TResult>
+        where TRequest : ICommand<TResult>
     {
         private readonly AppDbContext _dbContext;
 
@@ -17,13 +17,8 @@ namespace CqrsMediator.Demo.Bll.Mediator
             _dbContext = dbContext;
         }
 
-        public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
+        public async Task<TResult> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResult> next)
         {
-            if (!(request is ICommand<TResponse>))
-            {
-                return await next();
-            }
-
             using var tran = await _dbContext.Database.BeginTransactionAsync();
 
             try
