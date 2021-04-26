@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using AutoMapper;
 
@@ -23,21 +24,21 @@ namespace CqrsMediator.Demo.Api.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Dto.Product>> GetProducts([FromQuery] string name = null, [FromQuery] string description = null)
+        public async Task<ActionResult<List<Dto.Product>>> GetProducts([FromQuery] string name = null, [FromQuery] string description = null)
         {
-            return _mapper.Map<List<Dto.Product>>(_catalogService.FindProducts(name, description));
+            return _mapper.Map<List<Dto.Product>>(await _catalogService.FindProductsAsync(name, description));
         }
 
         [HttpGet("{productId:int}")]
-        public ActionResult<Dto.Product> GetProduct(int productId)
+        public async Task<ActionResult<Dto.Product>> GetProduct(int productId)
         {
-            return _mapper.Map<Dto.Product>(_catalogService.GetProduct(productId));
+            return _mapper.Map<Dto.Product>(await _catalogService.GetProductAsync(productId));
         }
 
         [HttpPost]
-        public ActionResult CreateProduct([FromBody] CreateProductRequest request)
+        public async Task<ActionResult> CreateProduct([FromBody] CreateProductRequest request)
         {
-            var p = _catalogService.CreateProduct(request.Name, request.Description, request.UnitPrice);
+            var p = await _catalogService.CreateProductAsync(request.Name, request.Description, request.UnitPrice);
             return CreatedAtAction(nameof(GetProducts), new { productId = p.ProductId }, _mapper.Map<Dto.Product>(p));
         }
     }
