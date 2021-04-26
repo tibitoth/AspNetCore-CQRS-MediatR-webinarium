@@ -15,8 +15,8 @@ namespace CqrsMediator.Demo.Dal.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("ProductVersion", "5.0.5")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("CqrsMediator.Demo.Dal.Entities.Order", b =>
@@ -120,6 +120,20 @@ namespace CqrsMediator.Demo.Dal.Migrations
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("CqrsMediator.Demo.Dal.Entities.Order", b =>
+                {
+                    b.Navigation("OrederItems");
+                });
+
+            modelBuilder.Entity("CqrsMediator.Demo.Dal.Entities.Product", b =>
+                {
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }
