@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using CqrsMediator.Demo.Dal;
 using CqrsMediator.Demo.Dal.Entities;
+
+using Microsoft.EntityFrameworkCore;
 
 namespace CqrsMediator.Demo.Bll.Services
 {
@@ -15,9 +18,9 @@ namespace CqrsMediator.Demo.Bll.Services
             _dbContext = dbContext;
         }
 
-        public Product GetProduct(int productId)
+        public async Task<Product> GetProductAsync(int productId)
         {
-            return _dbContext.Products.Find(productId);
-        }        
+            return await _dbContext.Products.FindAsync(productId);
+        }
     }
 }

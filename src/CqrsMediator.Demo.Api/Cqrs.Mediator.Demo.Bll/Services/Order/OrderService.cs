@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using CqrsMediator.Demo.Dal;
 using CqrsMediator.Demo.Dal.Entities;
@@ -21,21 +22,21 @@ namespace CqrsMediator.Demo.Bll.Services
             _catalogService = catalogService;
         }
 
-        public List<Dal.Entities.Order> FindOrders(OrderStatus? status)
+        public async Task<List<Dal.Entities.Order>> FindOrdersAsync(OrderStatus? status)
         {
-            return _dbContext.Orders
+            return await _dbContext.Orders
                 .Include(o => o.OrederItems)
                     .ThenInclude(o => o.Product)
                 .Where(o => status == null || o.Status == status)
-                .ToList();
+                .ToListAsync();
         }
 
-        public Dal.Entities.Order GetOrder(int orderId)
+        public async Task<Dal.Entities.Order> GetOrderAsync(int orderId)
         {
-            return _dbContext.Orders
+            return await _dbContext.Orders
                 .Include(o => o.OrederItems)
                     .ThenInclude(o => o.Product)
-                .SingleOrDefault(o => o.OrderId == orderId);
+                .SingleOrDefaultAsync(o => o.OrderId == orderId);
         }
     }
 }

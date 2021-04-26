@@ -29,15 +29,15 @@ namespace CqrsMediator.Demo.Api.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Dto.Order>> GetOrders([FromQuery] OrderStatus? status = null)
+        public async Task<ActionResult<List<Dto.Order>>> GetOrders([FromQuery] OrderStatus? status = null)
         {
-            return _mapper.Map<List<Dto.Order>>(_orderService.FindOrders(status));
+            return _mapper.Map<List<Dto.Order>>(await _orderService.FindOrdersAsync(status));
         }
 
         [HttpGet("{orderId:int}")]
-        public ActionResult<Dto.Order> GetOrder(int orderId)
+        public async Task<ActionResult<Dto.Order>> GetOrder(int orderId)
         {
-            return _mapper.Map<Dto.Order>(_orderService.GetOrder(orderId));
+            return _mapper.Map<Dto.Order>(await _orderService.GetOrderAsync(orderId));
         }
 
         [HttpPost]

@@ -31,7 +31,7 @@ namespace CqrsMediator.Demo.Bll.Catalog.EventHandlers
 
         private async Task<int> ChangeProductStockAsync(int productId, int stockChange)
         {
-            var p = _catalogService.GetProduct(productId);
+            var p = await _catalogService.GetProductAsync(productId);
 
             var newStock = p.Stock + stockChange;
             if (newStock < 0)

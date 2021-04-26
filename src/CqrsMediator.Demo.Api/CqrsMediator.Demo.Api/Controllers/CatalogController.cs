@@ -36,9 +36,9 @@ namespace CqrsMediator.Demo.Api.Controllers
         }
 
         [HttpGet("{productId:int}")]
-        public ActionResult<Dto.Product> GetProduct(int productId)
+        public async Task<ActionResult<Dto.Product>> GetProduct(int productId)
         {
-            return _mapper.Map<Dto.Product>(_catalogService.GetProduct(productId));
+            return _mapper.Map<Dto.Product>(await _catalogService.GetProductAsync(productId));
         }
 
         [HttpPost]
