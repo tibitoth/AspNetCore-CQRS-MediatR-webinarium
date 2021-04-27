@@ -1,5 +1,10 @@
 # AspNetCore-CQRS-MediatR-webinarium
-Talentera előadássorozat példakód
+
+Talentera előadássorozat demó.
+
+Kiinduló projekt a `main` ágon, a teljes megoldást pedig a `mediatr` ágon találjátok.
+
+[Prezentáció](T%C3%B3th%20Tibor%20-%20Talentera%20CQRS%20MediatR%2020210427.pdf) szintén a repónan található.
 
 ## Előkészületek
 
