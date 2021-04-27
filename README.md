@@ -81,7 +81,7 @@ public static class FindProduct
             return await _dbContext.Products
                 .Where(p => request.Name == null || p.Name.Contains(request.Name))
                 .Where(p => request.Description == null || p.Description.Contains(request.Description))
-                .ToListAsync());
+                .ToListAsync();
         }
     }
 }
@@ -231,7 +231,7 @@ public static class CreateOrder
 
             foreach (var item in order.OrederItems)
             {
-                _catalogService.ChangeProductStock(item.ProductId, -item.Amount);
+                await _catalogService.ChangeProductStockAsync(item.ProductId, -item.Amount);
             }
 
             return order;
@@ -278,6 +278,16 @@ public class OrderCreatedEvent : INotification
 Süssük el ezt az eseményt a `CreateOrder.Handler`-ben a `foreach` helyett.
 
 ```cs
+private readonly IMediator _mediator;
+
+public Handler(AppDbContext dbContext, ICatalogService catalogService, IMediator mediator)
+{
+    // ...
+    _mediator = mediator;
+}
+```
+
+```cs
 await _mediator.Publish(new OrderCreatedEvent() { Order = order });
 ```
 
@@ -305,7 +315,7 @@ public class OrderCreatedEventHandler : INotificationHandler<OrderCreatedEvent>
 
     private async Task<int> ChangeProductStockAsync(int productId, int stockChange)
     {
-        var p = _catalogService.GetProduct(productId);
+        var p = await _catalogService.GetProductAsync(productId);
         p.Stock += stockChange;
 
         await _dbContext.SaveChangesAsync();
