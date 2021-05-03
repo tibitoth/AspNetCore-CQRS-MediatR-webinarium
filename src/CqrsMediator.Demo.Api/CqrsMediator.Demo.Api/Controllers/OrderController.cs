@@ -38,7 +38,7 @@ namespace CqrsMediator.Demo.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateProduct([FromBody] CreateOrderRequest request)
+        public async Task<ActionResult> CreateOrder([FromBody] CreateOrderRequest request)
         {
             var o = await _orderService.CreateOrderAsync(
                 request.CustomerName,
