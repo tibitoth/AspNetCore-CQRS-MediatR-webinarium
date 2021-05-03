@@ -2,6 +2,8 @@
 
 https://www.talentera.hu/esemenyek/cqrs-es-mediator-tervezesi-mintak-hasznalata-asp-net-core-ral
 
+Videó: https://youtu.be/b5I7qAWcav4
+
 Talentera előadássorozat demó.
 
 Kiinduló projekt a `starter` ágon, a teljes megoldást pedig a `main` ágon találjátok.
