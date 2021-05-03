@@ -41,7 +41,7 @@ namespace CqrsMediator.Demo.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateProduct([FromBody] CreateOrder.Command request)
+        public async Task<ActionResult> CreateOrder([FromBody] CreateOrder.Command request)
         {
             var o = await _mediator.Send(request);
             return CreatedAtAction(nameof(GetOrder), new { orderId = o.OrderId }, _mapper.Map<Dto.Order>(o));
