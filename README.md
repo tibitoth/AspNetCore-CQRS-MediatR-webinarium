@@ -1,14 +1,16 @@
 # AspNetCore-CQRS-MediatR-webinarium
 
+https://www.talentera.hu/esemenyek/cqrs-es-mediator-tervezesi-mintak-hasznalata-asp-net-core-ral
+
 Talentera előadássorozat demó.
 
-Kiinduló projekt a `main` ágon, a teljes megoldást pedig a `mediatr` ágon találjátok.
+Kiinduló projekt a `starter` ágon, a teljes megoldást pedig a `main` ágon találjátok.
 
-[Prezentáció](T%C3%B3th%20Tibor%20-%20Talentera%20CQRS%20MediatR%2020210427.pdf) szintén a repónan található.
+[Prezentáció](T%C3%B3th%20Tibor%20-%20Talentera%20CQRS%20MediatR%2020210427.pdf) szintén a repóban található.
 
 ## Előkészületek
 
-* Induljunk ki a `main` ágból.
+* Induljunk ki a `starter` ágból.
 * Migráljuk fel az adatbázist egy PowerShellben kiadott paranccsal a Dal projektben állva `Update-Database`
 * Próbáljuk ki a meglévő alkalmazás funkcionalitását
 
